@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://vwwepkmgnoq"]
+
+[ext_resource type="ArrayMesh" uid="uid://cmgq7utfr23h8" path="res://assets/edificios/OBJ format/building-sample-tower-d.obj" id="1_l2pvm"]
+[ext_resource type="ArrayMesh" uid="uid://bcbvgjv3go55" path="res://assets/edificios/OBJ format/building-sample-tower-a.obj" id="2_0l1uu"]
+[ext_resource type="ArrayMesh" uid="uid://y3tdnnuhnj5k" path="res://assets/edificios/OBJ format/building-sample-tower-b.obj" id="3_mevg1"]
+[ext_resource type="ArrayMesh" uid="uid://ck5s2urqqorr1" path="res://assets/edificios/OBJ format/building-sample-house-b.obj" id="4_bpaql"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nimmk"]
+size = Vector3(1, 3.6914701, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_emia7"]
+size = Vector3(1, 2.5681152, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bon4"]
+size = Vector3(1, 2.3770752, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yorfn"]
+size = Vector3(1, 2.2749023, 1.989502)
+
+[node name="conjunto" type="Node3D"]
+transform = Transform3D(-0.9999959, 0, -0.0028623622, 0, 1, 0, 0.0028623622, 0, -0.9999959, 0, 0, 0)
+
+[node name="edificioA2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.957098, 0, 0, 0, 1.2544807, 0, 0, 0, 1.69769, -2.526405, -0.9713652, 1.0516815)
+mesh = ExtResource("1_l2pvm")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="edificioA2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="edificioA2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8565207, 0)
+shape = SubResource("BoxShape3D_nimmk")
+
+[node name="edificioB2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.9556026, 0, 0, 0, 1.4950271, 0, 0, 0, 1.5588965, -0.5700909, -0.9359524, 1.0271378)
+mesh = ExtResource("2_0l1uu")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="edificioB2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="edificioB2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2144775, 0)
+shape = SubResource("BoxShape3D_emia7")
+
+[node name="Edificio4" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.3436117, 0, 0, 0, 2.2700827, 0, 0, 0, 1.4877988, 1.5515773, -1.0403132, 1.0185032)
+mesh = ExtResource("3_mevg1")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Edificio4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Edificio4/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68853766, 0)
+shape = SubResource("BoxShape3D_2bon4")
+
+[node name="Edificio5" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.3436117, 0, 0, 0, 2.2700827, 0, 0, 0, 1.4877988, 1.5515773, -1.0403132, 1.0185032)
+mesh = ExtResource("3_mevg1")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Edificio5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Edificio5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68853766, 0)
+shape = SubResource("BoxShape3D_2bon4")
+
+[node name="edificio5" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.8336053, 0, 0, 0, 2.1887434, 0, 0, 0, 1, 4.065682, -0.96924996, 1.3568668)
+mesh = ExtResource("4_bpaql")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="edificio5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="edificio5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6374511, -0.08703613)
+shape = SubResource("BoxShape3D_yorfn")

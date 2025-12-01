@@ -1,0 +1,115 @@
+[gd_scene load_steps=24 format=3 uid="uid://8h82b5mlwv4x"]
+
+[ext_resource type="Script" uid="uid://d2bm5tmicy54g" path="res://Enemies/Scripts/enemigo_patrulla.gd" id="1_nfuqo"]
+[ext_resource type="PackedScene" uid="uid://d064hmpf5rd2e" path="res://Enemies/Models/characters/gltf/Knight.glb" id="2_nfuqo"]
+[ext_resource type="PackedScene" uid="uid://cd8vo8mnh8qct" path="res://Enemies/Models/items/gltf/sword_1handed.gltf" id="3_88y14"]
+[ext_resource type="AnimationLibrary" uid="uid://b40d85y1d7h8u" path="res://Enemies/Animaciones/Rig_Medium/Rig_Medium_General.glb" id="4_knm5v"]
+[ext_resource type="AnimationLibrary" uid="uid://dyvj6tgbkj7wq" path="res://Enemies/Animaciones/Rig_Medium/Rig_Medium_MovementBasic.glb" id="5_34x0w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q3bf3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dwibw"]
+radius = 0.7828006
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvbjw"]
+animation = &"Rig_Medium_General/Throw"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x1hai"]
+animation = &"Rig_Medium_General/Idle_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bl36p"]
+animation = &"Rig_Medium_MovementBasic/Running_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lexfb"]
+animation = &"Rig_Medium_MovementBasic/Walking_A"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j6ffu"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rtpx0"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dn8ec"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o6xcr"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pss73"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nvbjw"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bl36p"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lexfb"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x1hai"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xf5kh"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t2ku8"]
+states/Attack/node = SubResource("AnimationNodeAnimation_nvbjw")
+states/Attack/position = Vector2(718, 105)
+states/Idle/node = SubResource("AnimationNodeAnimation_x1hai")
+states/Idle/position = Vector2(130, 167)
+states/Run/node = SubResource("AnimationNodeAnimation_bl36p")
+states/Run/position = Vector2(460, 220)
+states/Start/position = Vector2(56, 32)
+states/Walk/node = SubResource("AnimationNodeAnimation_lexfb")
+states/Walk/position = Vector2(442, 46)
+transitions = ["Walk", "Run", SubResource("AnimationNodeStateMachineTransition_j6ffu"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_rtpx0"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_dn8ec"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_o6xcr"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_pss73"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_nvbjw"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_bl36p"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_lexfb"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_x1hai"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_xf5kh")]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x1hai"]
+height = 8.481201
+radius = 3.2016602
+
+[node name="EnemigoCaballero" type="CharacterBody3D" node_paths=PackedStringArray("anim_tree")]
+script = ExtResource("1_nfuqo")
+velocidad_correr = 3.0
+waypoints_grupo = "RutaEnemigo2"
+estado_quieto = "Idle"
+estado_caminar = "Walk"
+estado_atacar = "Attack"
+anim_tree = NodePath("AnimationTree")
+
+[node name="Knight" parent="." instance=ExtResource("2_nfuqo")]
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Knight/Rig_Medium/Skeleton3D" index="9"]
+transform = Transform3D(1.0561198e-05, -0.99999917, 4.5035844e-07, 4.0452986e-07, 3.9085265e-07, 0.9999996, -0.9999995, -1.06319785e-05, 3.51663e-07, -0.7131815, 1.1067611, 5.9604645e-08)
+bone_name = "wrist.r"
+bone_idx = 11
+
+[node name="sword_1handed2" parent="Knight/Rig_Medium/Skeleton3D/BoneAttachment3D" instance=ExtResource("3_88y14")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.006111026, 1.0284928, 0)
+shape = SubResource("CapsuleShape3D_q3bf3")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014867544, 1.1572847, 0)
+shape = SubResource("SphereShape3D_dwibw")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Knight")
+libraries = {
+&"Rig_Medium_General": ExtResource("4_knm5v"),
+&"Rig_Medium_MovementBasic": ExtResource("5_34x0w")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../Knight")
+tree_root = SubResource("AnimationNodeStateMachine_t2ku8")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AreaVision" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaVision"]
+transform = Transform3D(0.79254514, 0.025025874, 0.6092995, 0.6098132, -0.032524936, -0.79187745, 0, 0.99915755, -0.04103859, 0.019291803, 1.1602118, 4.7896814)
+shape = SubResource("CylinderShape3D_x1hai")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="AreaVision" to="." method="_on_area_vision_body_entered"]
+[connection signal="body_exited" from="AreaVision" to="." method="_on_area_vision_body_exited"]
+
+[editable path="Knight"]

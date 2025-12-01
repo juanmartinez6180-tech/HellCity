@@ -1,0 +1,114 @@
+[gd_scene load_steps=24 format=3 uid="uid://c42kllq52c7vj"]
+
+[ext_resource type="PackedScene" uid="uid://ysvbbkovqprw" path="res://Enemies/Models/characters/gltf/Rogue.glb" id="1_dwibw"]
+[ext_resource type="Script" uid="uid://d2bm5tmicy54g" path="res://Enemies/Scripts/enemigo_patrulla.gd" id="1_ko11w"]
+[ext_resource type="PackedScene" uid="uid://v8b2pffno4ll" path="res://Enemies/Models/items/gltf/dagger.gltf" id="2_ko11w"]
+[ext_resource type="AnimationLibrary" uid="uid://b40d85y1d7h8u" path="res://Enemies/Animaciones/Rig_Medium/Rig_Medium_General.glb" id="4_x1hai"]
+[ext_resource type="AnimationLibrary" uid="uid://dyvj6tgbkj7wq" path="res://Enemies/Animaciones/Rig_Medium/Rig_Medium_MovementBasic.glb" id="5_pss73"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q3bf3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dwibw"]
+radius = 0.7828006
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvbjw"]
+animation = &"Rig_Medium_General/Throw"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x1hai"]
+animation = &"Rig_Medium_General/Idle_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bl36p"]
+animation = &"Rig_Medium_MovementBasic/Running_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lexfb"]
+animation = &"Rig_Medium_MovementBasic/Walking_A"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j6ffu"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rtpx0"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dn8ec"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o6xcr"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pss73"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nvbjw"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bl36p"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lexfb"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x1hai"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xf5kh"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t2ku8"]
+states/Attack/node = SubResource("AnimationNodeAnimation_nvbjw")
+states/Attack/position = Vector2(718, 105)
+states/Idle/node = SubResource("AnimationNodeAnimation_x1hai")
+states/Idle/position = Vector2(130, 167)
+states/Run/node = SubResource("AnimationNodeAnimation_bl36p")
+states/Run/position = Vector2(460, 220)
+states/Start/position = Vector2(56, 32)
+states/Walk/node = SubResource("AnimationNodeAnimation_lexfb")
+states/Walk/position = Vector2(442, 46)
+transitions = ["Walk", "Run", SubResource("AnimationNodeStateMachineTransition_j6ffu"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_rtpx0"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_dn8ec"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_o6xcr"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_pss73"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_nvbjw"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_bl36p"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_lexfb"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_x1hai"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_xf5kh")]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x1hai"]
+height = 8.481201
+radius = 3.2016602
+
+[node name="EnemigoPatrulla" type="CharacterBody3D" node_paths=PackedStringArray("anim_tree")]
+script = ExtResource("1_ko11w")
+estado_quieto = "Idle"
+estado_caminar = "Walk"
+estado_atacar = "Attack"
+anim_tree = NodePath("AnimationTree")
+
+[node name="Rogue" parent="." instance=ExtResource("1_dwibw")]
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Rogue/Rig_Medium/Skeleton3D" index="7"]
+transform = Transform3D(-0.999999, 4.6839318e-07, 4.5751068e-07, 3.9800034e-07, -5.8875344e-07, 0.99999946, 3.9761645e-07, 0.99999946, 5.358822e-07, -0.8831323, 1.0492611, -7.2884757e-07)
+bone_name = "handslot.r"
+bone_idx = 16
+
+[node name="dagger2" parent="Rogue/Rig_Medium/Skeleton3D/BoneAttachment3D" instance=ExtResource("2_ko11w")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.006111026, 1.0284928, 0)
+shape = SubResource("CapsuleShape3D_q3bf3")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014867544, 1.1572847, 0)
+shape = SubResource("SphereShape3D_dwibw")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 1.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Rogue")
+libraries = {
+&"Rig_Medium_General": ExtResource("4_x1hai"),
+&"Rig_Medium_MovementBasic": ExtResource("5_pss73")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../Rogue")
+tree_root = SubResource("AnimationNodeStateMachine_t2ku8")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AreaVision" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaVision"]
+transform = Transform3D(0.79254514, 0.025025874, 0.6092995, 0.6098132, -0.032524936, -0.79187745, 0, 0.99915755, -0.04103859, 0.019291803, 1.1602118, 4.7896814)
+shape = SubResource("CylinderShape3D_x1hai")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="AreaVision" to="." method="_on_area_vision_body_entered"]
+[connection signal="body_exited" from="AreaVision" to="." method="_on_area_vision_body_exited"]
+
+[editable path="Rogue"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://8ev63wef6waa"]
+
+[ext_resource type="ArrayMesh" uid="uid://y3tdnnuhnj5k" path="res://assets/edificios/OBJ format/building-sample-tower-b.obj" id="1_kcguk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bon4"]
+size = Vector3(1, 2.3770752, 1)
+
+[node name="Edificio3" type="MeshInstance3D"]
+transform = Transform3D(2.3436117, 0, 0, 0, 2.2700827, 0, 0, 0, 1.4877988, 0, 0, 0)
+mesh = ExtResource("1_kcguk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68853766, 0)
+shape = SubResource("BoxShape3D_2bon4")
